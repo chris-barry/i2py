@@ -6,9 +6,9 @@
 #
 # This is the same as running `python -m i2pcontrol` from a command line.
 
-import i2py.i2pcontrol
+import i2py.control
 
-a = i2pcontrol.I2PControl()
+a = i2py.control.I2PControl()
 print(a.getNetworkSetting())
 vals = a.getRouterInfo()
 print(''.join([

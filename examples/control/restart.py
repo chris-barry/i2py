@@ -4,7 +4,7 @@
 # restart.py - I2PControl demo, restart your router.
 # License: public domain / unlicense
 
-import i2py.i2pcontrol
+import i2py.control
 
-a = i2pcontrol.I2PControl()
+a = i2py.control.I2PControl()
 a.restart_graceful()

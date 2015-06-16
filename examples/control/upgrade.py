@@ -4,7 +4,7 @@
 # upgrade.py - I2PControl demo, upgrade your router.
 # License: public domain / unlicense
 
-import i2py.i2pcontrol
+import i2py.control
 
 # TODO
 #a = i2pcontrol.()
