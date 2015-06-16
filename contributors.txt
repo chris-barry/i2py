@@ -1,0 +1,12 @@
+Contributing
+-----
+By contributing you agree your code is and can be licensed under the MIT or similar license.
+
+Credits
+-----
+Uses code from python-jsonrpc (https://github.com/gerold-penz/python-jsonrpc), MIT'd.
+
+Contributors:
+----
+* Jeff Becker
+* Chris Barry
