@@ -1,4 +1,3 @@
-* Make sure everything works before release.
-* Make sure everything is 4 spaces, no tabs.
-* Make sure i2pcontrol and netdb are up to date from psi's i2p-tools
-* Make sure pyjsonrpc code is up to date from github
+* New modules
+	* Steal SAMv1 form i2p.i2p/apps/sam/python
+	* Wait for Jeff's i2p.socket

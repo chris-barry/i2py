@@ -20,7 +20,7 @@ setup(name = 'i2py',
     'python-geoip-geolite2',  # Needed by i2py.netdb.
     ],
     tests_require=['pytest'],
-    url = 'https://github.com/chris-barry/py2p',
+    url = 'https://github.com/chris-barry/i2py',
     packages = ['i2py', 'i2py.netdb', 'i2py.control', 'i2py.control.pyjsonrpc'],
 )
 
