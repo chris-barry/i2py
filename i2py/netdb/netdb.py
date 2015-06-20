@@ -171,7 +171,6 @@ class Entry:
                 addr.location = geolite2.lookup(addr.options.get('host', None))
             except:
                 addr.location = None
-            return addr
 
             # If the router is firewalled (i.e. has no 'host' mapping), then use the first introducer (of 3).
             # In the future it might be worth it to do something else, but this helps for geopip information for now.
@@ -183,6 +182,7 @@ class Entry:
                     addr.location = geolite2.lookup(addr.options.get('ihost0', None))
                 except:
                     addr.location = None
+            return addr
 
 
     def __init__(self, filename):
