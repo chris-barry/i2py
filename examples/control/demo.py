@@ -9,8 +9,8 @@
 import i2py.control
 
 a = i2py.control.I2PControl()
-print(a.getNetworkSetting())
-vals = a.getRouterInfo()
+print(a.get_network_settings())
+vals = a.get_router_info()
 print(''.join([
     'You are running i2p version ', str(vals['i2p.router.version']), '. ',
     'It has been up for ', str(vals['i2p.router.uptime']), 'ms. ',
