@@ -58,20 +58,19 @@ class I2PController:
             url = ''.join(['https://',address[0],':',str(address[1]),'/']),
             ssl_context = context
         )
+        self.authenticate()
 
+    # Authenticate - Prove yourself to the server.
+    def authenticate(self):
         result = self._http_client.call('Authenticate',{ 
             'API': I2PController.API_VERSION,
             'Password': self._password
-            })
-
-        # TODO: Deal with errors better.
-        
+        })
         self._token = result['Token']
-
         if result['API'] != I2PController.API_VERSION:
-            print('looks like the api\'s do not match')
+            raise RuntimeError('API\'s do not match.')
     
-    # Echo
+    # Echo -  Echo back whatever is sent.
     def echo(self, string='echo'):
         return self._http_client.call('Echo',{ 
                 'Token': self._token,
@@ -91,25 +90,26 @@ class I2PController:
             )['Result']
 
     # I2PControl
-    def getI2PControlSettings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
+    def get_settings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
         return self._http_client.call('I2PControl', {
                 'Token': self._token,
                 'SettingsSaved': '',
                 'RestartNeeded': ''
                 })
 
-    def setI2PControlSettings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
+    def set_settings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
         result = self._http_client.call('I2PControl', {
                 'Token': self._token,
                 'i2pcontrol.address': address,
                 'i2pcontrol.port': port,
                 'i2pcontrol.password': password,
                 })
-        # TODO: Update class variables
+        self._password = result['i2pcontrol.password']
+        self._http_client.url = ''.join(['https://',result['i2pcontrol.address'],':',str(result['i2pcontrol.port']),'/'])
         return result
     
     # RouterInfo
-    def getRouterInfo(self):
+    def get_router_info(self):
         return self._http_client.call('RouterInfo', {
                 'Token': self._token,
                 'i2p.router.status':'',
@@ -160,13 +160,13 @@ class I2PController:
                 })
     
     # NetworkSettings
-    def setNetworkSetting(self, setting='', value=''):
+    def set_network_settings(self, setting='', value=''):
         return self._http_client.call('NetworkSetting', {
                 'Token': self._token,
                 setting: value
                 })
         
-    def getNetworkSetting(self):
+    def get_network_settings(self):
         return self._http_client.call('NetworkSetting', {
                 'Token': self._token,
                 'i2p.router.net.ntcp.port': None,
