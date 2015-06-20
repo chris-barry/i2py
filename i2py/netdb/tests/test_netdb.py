@@ -29,7 +29,7 @@ def test_address_repr():
     valid.transport = 'SSU'
     valid.options = {'host': '0.0.0.0', 'port': '1234', 'key': '', 'caps': ''}
     valid.expire = 0
-    assert(repr(valid) == 'Address: transport=SSU cost=10 expire=0 options={\'host\': \'0.0.0.0\', \'port\': \'1234\', \'key\': \'\', \'caps\': \'\'} location=None')
+    assert(repr(valid) == 'Address: transport=SSU cost=10 expire=0 options={\'host\': \'0.0.0.0\', \'port\': \'1234\', \'key\': \'\', \'caps\': \'\'} location=None firewalled=False')
 
 # TODO: test_entry*
 
@@ -57,7 +57,7 @@ def test_entry_dict():
     assert(True)
 
 # Make some garbage files and hope they break things.
-def test_fuzz(tmpdir):
+def test_inspect_fuzz(tmpdir):
     sub = tmpdir.mkdir('fuzzdb')
     # Write 100 entries.
     for i in range(1,100):

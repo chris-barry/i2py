@@ -51,6 +51,7 @@ class Address:
     options = None
     expire = None
     location = None
+    firewalled = False
 
     def valid(self):
         return None not in (self.cost, self.transport, self.options, self.expire)
