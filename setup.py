@@ -2,9 +2,9 @@
 from setuptools import setup
 
 setup(name = 'i2py',
-    version = '0.2',
+    version = '0.3',
     description = 'Tools to work with i2p.',
-    author = 'contributors.txt',
+    author = 'See contributors.txt',
     author_email = 'Anonymous',
     classifiers = [
     'Development Status :: 3 - Alpha',
