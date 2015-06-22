@@ -81,7 +81,7 @@ class I2PController:
     # GetRate
     # 300000 is 5 minutes, measured in ms.
     # http://i2p-projekt.i2p/en/misc/ratestats
-    def getRate(self, stat='', period=5*60*1000):
+    def get_rate(self, stat='', period=5*60*1000):
         return self._http_client.call('GetRate', {
                 'Token': self._token,
                 'Period': period,
@@ -89,24 +89,44 @@ class I2PController:
                 }
             )['Result']
 
-    # I2PControl
-    def get_settings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
-        return self._http_client.call('I2PControl', {
+	# I2PControl - Set connections settings.
+    # We don't have get_settings since we need all that info to even make a connection.
+    def set_settings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
+        foo = self._http_client.call('I2PControl', {
                 'Token': self._token,
+                #'i2pcontrol.port':str(port),
                 'SettingsSaved': '',
                 'RestartNeeded': ''
                 })
+        print foo
 
-    def set_settings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
-        result = self._http_client.call('I2PControl', {
-                'Token': self._token,
-                'i2pcontrol.address': address,
-                'i2pcontrol.port': port,
-                'i2pcontrol.password': password,
-                })
+        self._address = address
+        self._port = port
+        self._password = password
+        self.authenticate()
+
+        return foo
+        ''' Future implementation once http://trac.i2p2.i2p/ticket/1607  is fixed.
+        settings = [('i2pcontrol.address',address),('i2pcontrol.port',str(port)),('i2pcontrol.password',password)]
+        to_send = {'Token': self._token,}
+        result = {'SettingsSaved':False,'RestartNeeded':False,}
+
+        for s in settings:
+            to_send[s[0]] = s[1]
+            r = self._http_client.call('I2PControl', to_send)
+            to_send.pop(s[0], 0)
+
+            if r['SettingsSaved']:
+                result['SettingsSaved'] = True
+            if r['RestartNeeded']:
+                result['RestartNeeded'] = True
+
+    
         self._password = result['i2pcontrol.password']
         self._http_client.url = ''.join(['https://',result['i2pcontrol.address'],':',str(result['i2pcontrol.port']),'/'])
+        self._authenticate()
         return result
+        '''
     
     # RouterInfo
     def get_router_info(self):
