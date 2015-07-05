@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name = 'i2py',
-    version = '0.3',
+    version = '0.3.1',
     description = 'Tools to work with i2p.',
     author = 'See contributors.txt',
     author_email = 'Anonymous',
