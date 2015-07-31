@@ -89,7 +89,7 @@ class I2PController:
                 }
             )['Result']
 
-	# I2PControl - Set connections settings.
+    # I2PControl - Set connections settings.
     # We don't have get_settings since we need all that info to even make a connection.
     def set_settings(self, address=DEFAULT_HOST, password=DEFAULT_PASSWORD, port=DEFAULT_PORT):
         foo = self._http_client.call('I2PControl', {
@@ -149,6 +149,12 @@ class I2PController:
                 })
     
     # RouterManager
+    def find_updates(self):
+        return self._http_client.call('RouterManager', {
+                'Token': self._token,
+                'FindUpdates': ''
+                })
+
     def reseed(self):
         return self._http_client.call('RouterManager', {
                 'Token': self._token,
@@ -177,6 +183,12 @@ class I2PController:
         return self._http_client.call('RouterManager', {
                 'Token': self._token,
                 'ShutdownGraceful': ''
+                })
+
+    def update(self):
+        return self._http_client.call('RouterManager', {
+                'Token': self._token,
+                'Update': ''
                 })
     
     # NetworkSettings
